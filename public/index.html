@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>PorciWeight - Mobile Pig Weight & Growth Estimator</title>
-  <meta name="description" content="AI and computer vision mobile application for swine weight and growth time estimation in Spanish and English">
+  <title data-i18n="appTitle">PorciPeso - Estimador Móvil de Peso y Crecimiento Porcino</title>
+  <meta name="description" content="Aplicación móvil de biometría e inteligencia artificial para estimar el peso y tiempos de crecimiento porcino en español e inglés">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐖</text></svg>">
   <link rel="manifest" href="manifest.json">
   <!-- Tailwind CSS CDN -->
@@ -66,19 +66,19 @@
         </div>
         <div>
           <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-1.5">
-            <span>PorciWeight</span>
+            <span data-i18n="appName">PorciPeso</span>
             <span class="text-[10px] font-semibold bg-emerald-500/30 text-emerald-200 px-1.5 py-0.5 rounded border border-emerald-400/30">AI</span>
           </h1>
-          <p class="text-[11px] text-emerald-100 font-medium" data-i18n="appSubtitle">Mobile Swine Weight & Growth Estimator</p>
+          <p class="text-[11px] text-emerald-100 font-medium" data-i18n="appSubtitle">Estimador Móvil de Peso y Crecimiento Porcino</p>
         </div>
       </div>
 
       <!-- Language Toggle (English / Spanish) -->
       <div class="flex items-center bg-emerald-950/50 p-1 rounded-xl border border-white/15 shadow-inner">
-        <button id="btnLangEn" type="button" class="px-3 py-1 text-xs font-bold rounded-lg transition-all flex items-center justify-center min-w-[34px]" title="Switch to English">
+        <button id="btnLangEn" type="button" class="px-3 py-1 text-xs font-bold rounded-lg transition-all flex items-center justify-center min-w-[34px] text-emerald-100" title="Switch to English">
           <span>EN</span>
         </button>
-        <button id="btnLangEs" type="button" class="px-3 py-1 text-xs font-bold rounded-lg transition-all flex items-center justify-center min-w-[34px]" title="Cambiar a Español">
+        <button id="btnLangEs" type="button" class="px-3 py-1 text-xs font-bold rounded-lg transition-all flex items-center justify-center min-w-[34px] bg-white text-emerald-700 shadow-sm" title="Cambiar a Español">
           <span>ES</span>
         </button>
       </div>
