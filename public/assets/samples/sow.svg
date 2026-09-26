@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3f4f6" />
+      <stop offset="100%" stop-color="#d1d5db" />
+    </linearGradient>
+    <linearGradient id="sowSkin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffedd5" />
+      <stop offset="60%" stop-color="#fdba74" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgGrad4)" />
+  <line x1="0" y1="440" x2="800" y2="440" stroke="#9ca3af" stroke-width="4" stroke-dasharray="10 10" />
+  <rect x="0" y="440" width="800" height="60" fill="#e5e7eb" />
+
+  <!-- Shadow -->
+  <ellipse cx="430" cy="445" rx="300" ry="36" fill="rgba(0,0,0,0.28)" />
+
+  <!-- Back Legs -->
+  <path d="M 260 350 L 250 440 L 290 440 L 300 350 Z" fill="#9a3412" />
+  <path d="M 640 340 L 630 440 L 675 440 L 685 340 Z" fill="#9a3412" />
+
+  <!-- Massive Sow Body with deep belly -->
+  <path d="M 160 270 C 150 180 230 115 380 110 C 530 105 700 120 740 180 C 785 230 770 360 690 395 C 570 440 320 440 210 395 C 160 365 140 320 160 270 Z" fill="url(#sowSkin)" />
+
+  <!-- Head -->
+  <path d="M 210 190 C 170 150 110 170 70 210 C 50 250 80 300 130 315 C 180 320 220 280 220 230 Z" fill="#ea580c" />
+  <ellipse cx="60" cy="235" rx="24" ry="34" fill="#ffedd5" stroke="#9a3412" stroke-width="3" />
+  <ellipse cx="55" cy="226" rx="6" ry="10" fill="#7c2d12" />
+  <ellipse cx="55" cy="244" rx="6" ry="10" fill="#7c2d12" />
+
+  <!-- Eye -->
+  <circle cx="130" cy="210" r="8" fill="#1e293b" />
+  <circle cx="127" cy="207" r="2.5" fill="#ffffff" />
+
+  <!-- Ear -->
+  <path d="M 160 160 C 185 110 245 120 235 175 C 215 210 185 200 160 160 Z" fill="#fed7aa" stroke="#9a3412" stroke-width="3" />
+
+  <!-- Tail -->
+  <path d="M 750 190 C 785 175 805 150 785 130 C 765 115 750 155 795 140" fill="none" stroke="#ea580c" stroke-width="10" stroke-linecap="round" />
+
+  <!-- Front Legs -->
+  <path d="M 210 340 L 195 440 L 235 440 L 245 340 Z" fill="#ea580c" />
+  <path d="M 590 340 L 575 440 L 615 440 L 625 340 Z" fill="#ea580c" />
+
+  <!-- Label Badge -->
+  <rect x="30" y="30" width="220" height="42" rx="8" fill="#1e293b" opacity="0.85" />
+  <text x="45" y="56" font-family="sans-serif" font-weight="bold" font-size="16" fill="#fbbf24">● SAMPLE 4: SOW</text>
+</svg>

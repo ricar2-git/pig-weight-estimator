@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbcfe8" />
+      <stop offset="50%" stop-color="#f472b6" />
+      <stop offset="100%" stop-color="#db2777" />
+    </linearGradient>
+    <linearGradient id="bellyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f472b6" />
+      <stop offset="100%" stop-color="#be185d" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Farm Pen -->
+  <rect width="800" height="500" fill="url(#bgGrad)" />
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="10 10" />
+  <rect x="0" y="380" width="800" height="120" fill="#f1f5f9" />
+
+  <!-- Scale Marker Grid for Pen -->
+  <line x1="100" y1="360" x2="100" y2="380" stroke="#94a3b8" stroke-width="3" />
+  <line x1="200" y1="360" x2="200" y2="380" stroke="#94a3b8" stroke-width="3" />
+  <line x1="300" y1="360" x2="300" y2="380" stroke="#94a3b8" stroke-width="3" />
+  <line x1="400" y1="360" x2="400" y2="380" stroke="#94a3b8" stroke-width="3" />
+  <line x1="500" y1="360" x2="500" y2="380" stroke="#94a3b8" stroke-width="3" />
+  <line x1="600" y1="360" x2="600" y2="380" stroke="#94a3b8" stroke-width="3" />
+  <line x1="700" y1="360" x2="700" y2="380" stroke="#94a3b8" stroke-width="3" />
+  <text x="710" y="375" font-family="sans-serif" font-size="12" fill="#64748b">Pen Grid (10cm)</text>
+
+  <!-- Piglet Shadow -->
+  <ellipse cx="440" cy="385" rx="190" ry="25" fill="rgba(0,0,0,0.18)" />
+
+  <!-- Piglet Legs (Back layer) -->
+  <path d="M 330 310 L 320 375 L 345 375 L 350 310 Z" fill="#db2777" />
+  <path d="M 540 300 L 535 375 L 560 375 L 565 300 Z" fill="#db2777" />
+
+  <!-- Piglet Body -->
+  <path d="M 230 260 C 210 240 250 200 320 190 C 400 180 550 190 610 220 C 660 250 650 330 600 350 C 520 370 380 370 300 340 C 250 320 220 280 230 260 Z" fill="url(#skinGrad)" />
+
+  <!-- Piglet Head & Snout -->
+  <path d="M 260 220 C 230 210 180 220 160 250 C 145 270 170 295 210 300 C 240 305 270 280 270 240 Z" fill="#f472b6" />
+  <!-- Snout Disc -->
+  <ellipse cx="155" cy="265" rx="18" ry="24" fill="#fbcfe8" stroke="#db2777" stroke-width="3" />
+  <ellipse cx="150" cy="262" rx="4" ry="7" fill="#be185d" />
+  <ellipse cx="150" cy="272" rx="4" ry="7" fill="#be185d" />
+
+  <!-- Eye -->
+  <circle cx="215" cy="240" r="6" fill="#1e293b" />
+  <circle cx="213" cy="238" r="2" fill="#ffffff" />
+
+  <!-- Big Ear -->
+  <path d="M 240 210 C 250 170 290 175 285 220 C 280 240 255 245 240 210 Z" fill="#fbcfe8" stroke="#db2777" stroke-width="2" />
+
+  <!-- Curly Tail -->
+  <path d="M 625 240 C 655 230 670 210 655 195 C 640 185 640 215 670 205" fill="none" stroke="#f472b6" stroke-width="6" stroke-linecap="round" />
+
+  <!-- Piglet Legs (Front layer) -->
+  <path d="M 285 310 L 275 380 L 305 380 L 310 310 Z" fill="#f472b6" />
+  <path d="M 505 315 L 495 380 L 525 380 L 530 315 Z" fill="#f472b6" />
+
+  <!-- Label Badge -->
+  <rect x="30" y="30" width="220" height="42" rx="8" fill="#1e293b" opacity="0.85" />
+  <text x="45" y="56" font-family="sans-serif" font-weight="bold" font-size="16" fill="#10b981">● SAMPLE 1: WEANER</text>
+</svg>

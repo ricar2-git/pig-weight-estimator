@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PorciWeight - Mobile Pig Weight & Growth Estimator</title>
+  <meta name="description" content="AI and computer vision mobile application for swine weight and growth time estimation in Spanish and English">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐖</text></svg>">
+  <link rel="manifest" href="manifest.json">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="bg-slate-950 text-slate-900 min-h-screen flex flex-col items-center py-0 sm:py-6 px-0 sm:px-4">
+
+  <!-- Desktop Controls Bar (Frame switcher & Network indicator) -->
+  <header class="w-full max-w-md sm:max-w-4xl flex items-center justify-between px-4 py-2 text-xs text-slate-400">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="font-medium text-slate-300">Antigravity Local Swine Engine</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="btnToggleDeviceFrame" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+        📱 Mobile Frame (Active)
+      </button>
+      <span class="text-slate-500">v1.0.0</span>
+    </div>
+  </header>
+
+  <!-- Mobile App Frame Container -->
+  <main id="appContainer" class="w-full max-w-md bg-slate-900 shadow-2xl rounded-none sm:rounded-3xl border-0 sm:border-8 border-slate-800 overflow-hidden flex flex-col min-h-screen sm:min-h-[844px] transition-all duration-300">
+
+    <!-- Mobile Device Status Bar -->
+    <div class="bg-emerald-900 text-emerald-100 px-6 pt-3 pb-1 flex justify-between items-center text-xs select-none">
+      <span class="font-semibold tracking-wide">09:41</span>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M17.778 8.222c-4.296-4.296-11.26-4.296-15.556 0A1 1 0 01.808 6.808c5.076-5.077 13.308-5.077 18.384 0a1 1 0 01-1.414 1.414zM14.95 11.05a7 7 0 00-9.9 0 1 1 0 01-1.414-1.414 9 9 0 0112.728 0 1 1 0 01-1.414 1.414zM12.12 13.88a3 3 0 00-4.242 0 1 1 0 01-1.415-1.415 5 5 0 017.072 0 1 1 0 01-1.415 1.415zM9 16a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+        <span class="font-bold">100%</span>
+      </div>
+    </div>
+
+    <!-- App Header & Language Switcher -->
+    <header class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 text-white px-5 py-4 shadow-md flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-2xl shadow-inner">
+          🐖
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-1.5">
+            <span>PorciWeight</span>
+            <span class="text-[10px] font-semibold bg-emerald-500/30 text-emerald-200 px-1.5 py-0.5 rounded border border-emerald-400/30">AI</span>
+          </h1>
+          <p class="text-[11px] text-emerald-100 font-medium" data-i18n="appSubtitle">Mobile Swine Weight & Growth Estimator</p>
+        </div>
+      </div>
+
+      <!-- Language Toggle (English / Spanish) -->
+      <div class="flex items-center bg-emerald-950/50 p-1 rounded-xl border border-white/15 shadow-inner">
+        <button id="btnLangEn" type="button" class="px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1" title="Switch to English">
+          <span>🇺🇸</span>
+          <span>EN</span>
+        </button>
+        <button id="btnLangEs" type="button" class="px-2.5 py-1 text-xs font-bold rounded-lg transition-all flex items-center gap-1" title="Cambiar a Español">
+          <span>🇪🇸</span>
+          <span>ES</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Main App Content -->
+    <div class="flex-1 bg-slate-50 overflow-y-auto pb-12">
+
+      <!-- Viewfinder Canvas Section -->
+      <div class="relative bg-slate-900 border-b border-slate-800">
+        <canvas id="visionCanvas" class="w-full h-64 sm:h-72 touch-none block" width="800" height="500"></canvas>
+
+        <!-- Floating Quick Action Buttons on Canvas -->
+        <div class="absolute bottom-3 left-0 right-0 px-4 flex justify-between items-center pointer-events-none">
+          <span class="bg-black/60 backdrop-blur text-emerald-400 text-[11px] font-semibold px-2.5 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1.5 shadow pointer-events-auto">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span data-i18n="adjustmentsHint">Drag pins on image</span>
+          </span>
+
+          <button id="btnRetake" type="button" class="bg-black/60 hover:bg-black/80 backdrop-blur text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition flex items-center gap-1 shadow pointer-events-auto">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span data-i18n="btnRetake">New Photo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Photo Input Action Bar -->
+      <div class="p-4 bg-white border-b border-slate-200 shadow-sm">
+        <input type="file" id="fileInput" accept="image/*" capture="environment" class="hidden">
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <!-- Primary: Take Photo -->
+          <button id="btnTakePhoto" type="button" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-2.5 px-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm active:scale-[0.98]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span data-i18n="btnTakePhoto">Take Photo</span>
+          </button>
+
+          <!-- Secondary: Upload Image -->
+          <button id="btnUploadFile" type="button" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2.5 px-3 rounded-xl border border-slate-300 transition flex items-center justify-center gap-2 text-sm active:scale-[0.98]">
+            <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span data-i18n="btnUploadFile">Upload Image</span>
+          </button>
+        </div>
+
+        <div class="mt-2.5 flex items-center justify-between text-xs text-slate-500">
+          <button id="btnLiveCamera" type="button" class="text-emerald-700 hover:text-emerald-800 font-medium flex items-center gap-1 py-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span data-i18n="btnLiveCamera">Use Live Viewfinder</span>
+          </button>
+          <span class="text-slate-400">JPG, PNG, WEBP</span>
+        </div>
+      </div>
+
+      <!-- Quick Test Sample Pigs Selector -->
+      <section class="p-4 border-b border-slate-200 bg-emerald-50/50">
+        <div class="flex items-center justify-between mb-2.5">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
+            <span>🐖</span>
+            <span data-i18n="presetsTitle">Quick Test Pig Presets</span>
+          </h2>
+          <span class="text-[11px] text-emerald-700 font-medium">1-Tap Demo</span>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2">
+          <button type="button" data-preset="piglet" class="p-2 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition text-center focus:outline-none">
+            <div class="text-xl">🐷</div>
+            <div class="text-[11px] font-bold text-slate-800 truncate mt-1">18 kg</div>
+            <div class="text-[9px] text-slate-500 uppercase truncate">Weaner</div>
+          </button>
+          <button type="button" data-preset="grower" class="p-2 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition text-center focus:outline-none ring-2 ring-emerald-500 bg-emerald-50">
+            <div class="text-xl">🐖</div>
+            <div class="text-[11px] font-bold text-slate-800 truncate mt-1">52 kg</div>
+            <div class="text-[9px] text-slate-500 uppercase truncate">Grower</div>
+          </button>
+          <button type="button" data-preset="finisher" class="p-2 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition text-center focus:outline-none">
+            <div class="text-xl">🐗</div>
+            <div class="text-[11px] font-bold text-slate-800 truncate mt-1">108 kg</div>
+            <div class="text-[9px] text-slate-500 uppercase truncate">Finisher</div>
+          </button>
+          <button type="button" data-preset="sow" class="p-2 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-emerald-400 transition text-center focus:outline-none">
+            <div class="text-xl">🐽</div>
+            <div class="text-[11px] font-bold text-slate-800 truncate mt-1">215 kg</div>
+            <div class="text-[9px] text-slate-500 uppercase truncate">Sow</div>
+          </button>
+        </div>
+      </section>
+
+      <!-- RESULTS SECTION: ESTIMATED WEIGHT -->
+      <section id="resultsSection" class="p-4">
+        <div class="bg-gradient-to-br from-emerald-900 via-slate-900 to-teal-950 rounded-2xl p-5 text-white shadow-xl border border-emerald-500/20 relative overflow-hidden">
+          <!-- Background decorative glow -->
+          <div class="absolute -top-12 -right-12 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl"></div>
+
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs uppercase tracking-wider font-semibold text-emerald-300 flex items-center gap-1.5" data-i18n="estimatedLiveWeight">
+              Estimated Live Weight
+            </span>
+            <span class="text-[10px] font-bold uppercase bg-emerald-400/20 text-emerald-200 px-2 py-0.5 rounded-full border border-emerald-400/30" data-i18n="confidenceBadge">
+              High Confidence (±3.8%)
+            </span>
+          </div>
+
+          <!-- Main Weight Metric Display -->
+          <div class="flex items-baseline gap-3 my-2">
+            <div class="flex items-baseline">
+              <span id="displayWeightKg" class="text-5xl font-black tracking-tight text-white">52.3</span>
+              <span class="text-2xl font-bold text-emerald-400 ml-1.5">kg</span>
+            </div>
+            <span class="text-slate-400 text-lg">/</span>
+            <div class="flex items-baseline">
+              <span id="displayWeightLbs" class="text-3xl font-extrabold text-slate-300">115.3</span>
+              <span class="text-lg font-semibold text-slate-400 ml-1">lbs</span>
+            </div>
+          </div>
+
+          <!-- Expected Range and Carcass Yield -->
+          <div class="grid grid-cols-2 gap-3 pt-3 mt-3 border-t border-white/10 text-xs">
+            <div>
+              <span class="text-slate-400 block" data-i18n="confidenceRange">Expected Range:</span>
+              <span id="displayConfidenceRange" class="font-bold text-emerald-200">50.3 - 54.3 kg</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block" data-i18n="carcassYield">Est. Carcass (74.5%):</span>
+              <span class="font-bold text-teal-200"><span id="displayCarcassKg">39.0 kg</span> (<span id="displayCarcassLbs">85.9 lbs</span>)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIME ESTIMATES & GROWTH TRAJECTORY SECTION -->
+      <section class="px-4 pb-4">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-md">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <h2 class="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span data-i18n="timeEstimatesTitle">Growth Timeline & Market Time Estimates</span>
+              </h2>
+              <p class="text-[11px] text-slate-400 font-medium" data-i18n="timeEstimatesSubtitle">Projected swine growth trajectory based on Gompertz biological curve</p>
+            </div>
+          </div>
+
+          <!-- Growth Stage Badge & Biological Advice -->
+          <div class="mt-3 bg-emerald-50 rounded-xl p-3 border border-emerald-100">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Current Phase</span>
+              <span id="displayStageBadge" class="text-xs font-bold text-emerald-700 bg-white px-2 py-0.5 rounded-full shadow-sm border border-emerald-200">
+                Grower Stage (Crecimiento)
+              </span>
+            </div>
+            <p id="displayStageAdvice" class="text-xs text-emerald-900 leading-relaxed mt-1">
+              Rapid muscle deposition phase. Balanced protein/lysine ratio and free-choice feeding.
+            </p>
+          </div>
+
+          <!-- Time Estimates Matrix -->
+          <div class="grid grid-cols-2 gap-3 mt-4">
+            <!-- Age Estimate -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span class="text-[10px] font-semibold uppercase text-slate-400 block" data-i18n="statAge">Estimated Age</span>
+              <span id="displayAge" class="text-base font-bold text-slate-800 mt-0.5 block">14.2 wks (99 days)</span>
+            </div>
+
+            <!-- Days to Market Weight -->
+            <div class="bg-emerald-50/70 p-3 rounded-xl border border-emerald-100">
+              <span class="text-[10px] font-semibold uppercase text-emerald-800 block" data-i18n="statDaysToMarket">Days to Market</span>
+              <span id="displayDaysToMarket" class="text-base font-bold text-emerald-700 mt-0.5 block">81 days (~11.6 wks)</span>
+            </div>
+
+            <!-- Estimated Market Date -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span class="text-[10px] font-semibold uppercase text-slate-400 block" data-i18n="statProjectedDate">Estimated Ready Date</span>
+              <span id="displayMarketDate" class="text-sm font-bold text-slate-800 mt-0.5 block">2026-12-15</span>
+            </div>
+
+            <!-- ADG Daily Gain -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span class="text-[10px] font-semibold uppercase text-slate-400 block" data-i18n="statADG">Avg Daily Gain (ADG)</span>
+              <span id="displayADG" class="text-sm font-bold text-slate-800 mt-0.5 block">0.78 kg/day (1.72 lb/d)</span>
+            </div>
+
+            <!-- Feed Needed -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span class="text-[10px] font-semibold uppercase text-slate-400 block" data-i18n="statFeedNeeded">Remaining Feed</span>
+              <span id="displayFeedNeeded" class="text-sm font-bold text-slate-800 mt-0.5 block">150.5 kg (331.8 lbs)</span>
+            </div>
+
+            <!-- Feed Conversion Ratio -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+              <span class="text-[10px] font-semibold uppercase text-slate-400 block" data-i18n="statFCR">Feed Conv. Ratio (FCR)</span>
+              <span id="displayFCR" class="text-sm font-bold text-slate-800 mt-0.5 block">2.4:1</span>
+            </div>
+          </div>
+
+          <!-- Market Weight Readiness Progress Bar -->
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="flex justify-between items-center text-xs mb-1.5">
+              <span class="font-semibold text-slate-600" data-i18n="statMarketProgress">Market Weight Readiness (Target 115 kg)</span>
+              <span id="progressPercentText" class="font-extrabold text-emerald-700">45%</span>
+            </div>
+            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+              <div id="progressBarMarket" class="bg-gradient-to-r from-teal-500 to-emerald-600 h-full rounded-full transition-all duration-500" style="width: 45%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BIOMETRIC ADJUSTMENTS & CALIBRATION CARD -->
+      <section class="px-4 pb-4">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-md">
+          <h2 class="text-sm font-extrabold text-slate-900 pb-3 border-b border-slate-100 flex items-center justify-between">
+            <span data-i18n="adjustmentsTitle">Biometric Calibration</span>
+            <span class="text-xs font-normal text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">FAO Swine Model</span>
+          </h2>
+
+          <div class="space-y-4 mt-4">
+            <!-- Body Length Slider -->
+            <div>
+              <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                  <span data-i18n="labelLength">Body Length (Snout to Tail)</span>
+                </span>
+                <span id="valLength" class="font-bold text-emerald-700">96 cm (38 in)</span>
+              </div>
+              <input type="range" id="sliderLength" min="30" max="200" value="96" step="1">
+            </div>
+
+            <!-- Heart Girth Slider -->
+            <div>
+              <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                  <span data-i18n="labelGirth">Heart Girth (Chest Circumference)</span>
+                </span>
+                <span id="valGirth" class="font-bold text-purple-700">88 cm (35 in)</span>
+              </div>
+              <input type="range" id="sliderGirth" min="30" max="200" value="88" step="1">
+            </div>
+
+            <!-- BCS (Body Condition Score) -->
+            <div>
+              <label for="selectBCS" class="block text-xs font-medium text-slate-700 mb-1" data-i18n="labelBCS">
+                Body Condition Score (BCS 1-5)
+              </label>
+              <select id="selectBCS" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <option value="1" data-i18n="bcs1">1 - Emaciated (Hips/ribs prominent)</option>
+                <option value="2" data-i18n="bcs2">2 - Thin (Easily felt bones)</option>
+                <option value="3" selected data-i18n="bcs3">3 - Ideal / Market Standard</option>
+                <option value="4" data-i18n="bcs4">4 - Overconditioned / Fat</option>
+                <option value="5" data-i18n="bcs5">5 - Obese (Flank folds)</option>
+              </select>
+            </div>
+
+            <!-- Breed Selector -->
+            <div>
+              <label for="selectBreed" class="block text-xs font-medium text-slate-700 mb-1" data-i18n="labelBreed">
+                Breed / Genetics
+              </label>
+              <select id="selectBreed" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <option value="commercial" data-i18n="breedCommercial">Commercial White (Yorkshire / Landrace)</option>
+                <option value="duroc" selected data-i18n="breedDuroc">Duroc (High Muscle)</option>
+                <option value="pietrain" data-i18n="breedPietrain">Pietrain (Lean Ham)</option>
+                <option value="berkshire" data-i18n="breedBerkshire">Berkshire (Marbled)</option>
+                <option value="iberian" data-i18n="breedIberian">Iberian / Pasture</option>
+                <option value="potbellied" data-i18n="breedPotbellied">Miniature / Potbellied</option>
+              </select>
+            </div>
+
+            <!-- Target Market Weight -->
+            <div>
+              <label for="inputTargetWeight" class="block text-xs font-medium text-slate-700 mb-1" data-i18n="labelTargetWeight">
+                Target Market Weight (kg)
+              </label>
+              <input type="number" id="inputTargetWeight" value="115" min="20" max="300" step="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FARM LOG / RECENT SCANS SECTION -->
+      <section class="px-4 pb-4">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-md">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+            <h2 class="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
+              <span>📋</span>
+              <span data-i18n="historyTitle">Recent Farm Measurements</span>
+            </h2>
+            <button id="btnClearHistory" type="button" class="text-xs text-rose-600 hover:text-rose-700 font-medium" data-i18n="btnClearHistory">
+              Clear
+            </button>
+          </div>
+
+          <!-- History Action Buttons -->
+          <div class="grid grid-cols-2 gap-2 mb-3">
+            <button id="btnSaveScan" type="button" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-xl transition text-xs flex items-center justify-center gap-1.5 shadow-sm">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+              <span data-i18n="btnSaveScan">Save to Farm Log</span>
+            </button>
+            <button id="btnExportReport" type="button" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2 px-3 rounded-xl border border-slate-200 transition text-xs flex items-center justify-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span data-i18n="btnExportReport">Export Report</span>
+            </button>
+          </div>
+
+          <div id="historyList" class="space-y-2">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- PHOTO BEST PRACTICES GUIDE -->
+      <section class="px-4 pb-6">
+        <div class="bg-emerald-900/10 rounded-2xl p-4 border border-emerald-500/20">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-900 mb-2 flex items-center gap-1.5">
+            <span>💡</span>
+            <span data-i18n="tipTitle">Best Photo Practices</span>
+          </h2>
+          <ul class="text-xs text-slate-600 space-y-1.5 leading-relaxed">
+            <li data-i18n="tip1">1. Position camera at pig eye level, parallel to the body side (lateral view).</li>
+            <li data-i18n="tip2">2. Ensure full body is visible: snout, withers, backline, and rump.</li>
+            <li data-i18n="tip3">3. Good ambient lighting without harsh cast shadows on the flank.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- Mobile Home Indicator -->
+    <div class="bg-white py-2 flex justify-center border-t border-slate-200">
+      <div class="w-32 h-1 bg-slate-400 rounded-full"></div>
+    </div>
+  </main>
+
+  <!-- LIVE CAMERA WEBCAM MODAL -->
+  <div id="cameraModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center p-4 hidden">
+    <div class="w-full max-w-md bg-slate-900 rounded-2xl overflow-hidden shadow-2xl border border-slate-700 flex flex-col">
+      <div class="p-3 bg-slate-800 text-white flex justify-between items-center text-sm font-bold">
+        <span>📸 Swine Viewfinder</span>
+        <button id="btnCloseCamera" type="button" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+
+      <div class="relative bg-black aspect-video flex items-center justify-center overflow-hidden">
+        <video id="videoFeed" autoplay playsinline class="w-full h-full object-cover"></video>
+        <!-- Overlay Guide Grid -->
+        <div class="absolute inset-0 pointer-events-none border-2 border-dashed border-emerald-400/50 m-6 rounded-xl flex items-center justify-center">
+          <span class="text-xs font-semibold text-emerald-300 bg-black/60 px-2 py-1 rounded">Align Pig Laterally</span>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-900 flex justify-center">
+        <button id="btnCaptureVideo" type="button" class="w-16 h-16 rounded-full bg-emerald-500 hover:bg-emerald-400 border-4 border-white shadow-lg active:scale-95 transition"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/estimator.js"></script>
+  <script src="js/vision.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

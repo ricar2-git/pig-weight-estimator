@@ -1,0 +1,22 @@
+{
+  "name": "porciweight-pig-weight-estimator",
+  "version": "1.0.0",
+  "description": "Mobile application for swine weight and growth time estimation from images in English and Spanish",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "pig-weight-estimator",
+    "swine-biometrics",
+    "mobile-app",
+    "computer-vision",
+    "i18n",
+    "spanish",
+    "english",
+    "growth-estimator"
+  ],
+  "author": "Antigravity Swine AI Team",
+  "license": "MIT"
+}

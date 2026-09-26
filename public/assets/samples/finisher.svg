@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <linearGradient id="finisherSkin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fee2e2" />
+      <stop offset="50%" stop-color="#fca5a5" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#bgGrad3)" />
+  <line x1="0" y1="430" x2="800" y2="430" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="10 10" />
+  <rect x="0" y="430" width="800" height="70" fill="#f1f5f9" />
+
+  <!-- Shadow -->
+  <ellipse cx="430" cy="435" rx="270" ry="34" fill="rgba(0,0,0,0.25)" />
+
+  <!-- Back Legs -->
+  <path d="M 270 340 L 260 430 L 295 430 L 305 340 Z" fill="#9f1239" />
+  <path d="M 620 330 L 610 430 L 650 430 L 655 330 Z" fill="#9f1239" />
+
+  <!-- Heavy Muscled Torso & Ham -->
+  <path d="M 180 270 C 170 210 240 140 360 135 C 500 130 670 145 720 190 C 765 235 750 350 670 385 C 560 425 340 425 240 380 C 180 350 160 310 180 270 Z" fill="url(#finisherSkin)" />
+
+  <!-- Large Ham Line -->
+  <path d="M 640 170 Q 710 240 680 340" fill="none" stroke="#be123c" stroke-width="4" opacity="0.4" />
+
+  <!-- Head -->
+  <path d="M 230 200 C 190 170 130 190 90 230 C 70 265 100 315 150 325 C 200 330 240 290 240 240 Z" fill="#f43f5e" />
+  <ellipse cx="80" cy="250" rx="22" ry="32" fill="#ffe4e6" stroke="#be123c" stroke-width="3" />
+  <ellipse cx="75" cy="242" rx="5" ry="9" fill="#881337" />
+  <ellipse cx="75" cy="258" rx="5" ry="9" fill="#881337" />
+
+  <!-- Eye -->
+  <circle cx="150" cy="225" r="7.5" fill="#1e293b" />
+  <circle cx="148" cy="223" r="2.5" fill="#ffffff" />
+
+  <!-- Ear -->
+  <path d="M 180 180 C 200 130 260 140 250 195 C 230 230 200 220 180 180 Z" fill="#fecdd3" stroke="#be123c" stroke-width="3" />
+
+  <!-- Curly Tail -->
+  <path d="M 730 205 C 765 190 790 165 770 145 C 750 130 735 170 780 155" fill="none" stroke="#f43f5e" stroke-width="9" stroke-linecap="round" />
+
+  <!-- Front Legs -->
+  <path d="M 220 330 L 205 430 L 245 430 L 255 330 Z" fill="#f43f5e" />
+  <path d="M 570 330 L 555 430 L 595 430 L 605 330 Z" fill="#f43f5e" />
+
+  <!-- Label Badge -->
+  <rect x="30" y="30" width="230" height="42" rx="8" fill="#1e293b" opacity="0.85" />
+  <text x="45" y="56" font-family="sans-serif" font-weight="bold" font-size="16" fill="#f43f5e">● SAMPLE 3: FINISHER</text>
+</svg>
