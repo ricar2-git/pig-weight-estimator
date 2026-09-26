@@ -1,6 +1,6 @@
-# 🐖 PorciWeight - Mobile Swine Weight & Growth Estimator
-> **Estimador Móvil de Peso y Tiempos de Crecimiento Porcino**
-> Bilingual (English / Español) AI-assisted computer vision and biometrics mobile application for livestock farmers, agronomists, and veterinarians.
+# 🐖 PorciPeso (PorciWeight) - Estimador Móvil de Peso y Crecimiento Porcino
+> **Mobile Swine Weight & Growth Estimator**
+> Aplicación móvil bilingüe (Español por defecto / English) con visión computacional e inteligencia artificial para porcicultores, veterinarios y agrónomos.
 
 [![Language](https://img.shields.io/badge/Language-English%20%7C%20Espa%C3%B1ol-emerald.svg)](#features)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

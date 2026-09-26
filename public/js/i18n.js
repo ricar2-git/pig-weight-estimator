@@ -4,11 +4,12 @@
  */
 
 const I18N = {
-  currentLang: 'en',
+  currentLang: 'es',
 
   translations: {
     en: {
       appName: 'PorciWeight',
+      appTitle: 'PorciWeight - Mobile Swine Weight & Growth Estimator',
       appSubtitle: 'Mobile Swine Weight & Growth Estimator',
       tagline: 'Computer Vision & Livestock Biometrics in your pocket',
       navScanner: 'Scanner',
@@ -120,8 +121,9 @@ const I18N = {
     },
 
     es: {
-      appName: 'PorciWeight',
-      appSubtitle: 'Estimador Móvil de Peso y Tiempos de Crecimiento Porcino',
+      appName: 'PorciPeso',
+      appTitle: 'PorciPeso - Estimador Móvil de Peso y Crecimiento Porcino',
+      appSubtitle: 'Estimador Móvil de Peso y Crecimiento Porcino',
       tagline: 'Visión computacional y biometría porcina en tu bolsillo',
       navScanner: 'Escáner',
       navPresets: 'Muestras',
@@ -270,6 +272,11 @@ const I18N = {
       }
     });
 
+    const titleText = this.get('appTitle');
+    if (titleText) {
+      document.title = titleText;
+    }
+
     // Update active state on language toggle buttons
     const btnEn = document.getElementById('btnLangEn');
     const btnEs = document.getElementById('btnLangEs');
@@ -292,11 +299,11 @@ const I18N = {
   },
 
   init() {
-    let savedLang = 'en';
+    let savedLang = 'es';
     try {
-      savedLang = localStorage.getItem('porciweight_lang') || (navigator.language.startsWith('es') ? 'es' : 'en');
+      savedLang = localStorage.getItem('porciweight_lang') || 'es';
     } catch (e) {}
-    this.currentLang = (savedLang === 'es') ? 'es' : 'en';
+    this.currentLang = (savedLang === 'en') ? 'en' : 'es';
     this.applyTranslations();
   }
 };

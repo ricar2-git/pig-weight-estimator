@@ -76,7 +76,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, '0.0.0.0', () => {
   const localIps = getLocalIpAddresses();
   console.log('====================================================');
-  console.log('🐖  PORCIWEIGHT - PIG WEIGHT & GROWTH ESTIMATOR  🐖');
+  console.log('🐖  PORCIPESO / PORCIWEIGHT - ESTIMADOR PORCINO  🐖');
   console.log('====================================================');
   console.log(`Local Browser:    http://localhost:${PORT}`);
   localIps.forEach(ip => {

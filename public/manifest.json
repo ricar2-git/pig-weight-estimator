@@ -1,6 +1,6 @@
 {
-  "name": "PorciWeight - Swine Weight & Growth Estimator",
-  "short_name": "PorciWeight",
+  "name": "PorciPeso - Estimador de Peso y Crecimiento Porcino",
+  "short_name": "PorciPeso",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#022c22",

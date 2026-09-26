@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!currentResults) return;
     const isEs = I18N.currentLang === 'es';
     const lines = [
-      `PORCIWEIGHT - ${isEs ? 'INFORME BIOMÉTRICO PORCINO' : 'SWINE BIOMETRIC REPORT'}`,
+      `${isEs ? 'PORCIPESO - INFORME BIOMÉTRICO PORCINO' : 'PORCIWEIGHT - SWINE BIOMETRIC REPORT'}`,
       `----------------------------------------`,
       `${isEs ? 'Fecha' : 'Date'}: ${new Date().toLocaleString()}`,
       `${isEs ? 'Peso Vivo Estimado' : 'Estimated Live Weight'}: ${currentResults.weightKg} kg (${currentResults.weightLbs} lbs)`,
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `porciweight-report-${Date.now()}.txt`;
+    a.download = `${isEs ? 'porcipeso-informe' : 'porciweight-report'}-${Date.now()}.txt`;
     a.click();
     URL.revokeObjectURL(url);
   });
